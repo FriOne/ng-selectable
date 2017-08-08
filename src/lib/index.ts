@@ -1,3 +1,2 @@
-export { LibComponent } from './src/component/lib.component';
-export { LibService } from './src/service/lib.service';
-export { LibModule } from './src/module';
+export { SimpleSelectComponent } from './src/simple-select/component/simple-select.component';
+export { SimpleSelectModule } from './src/simple-select/module';
