@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const SIMPLE_SELECT_VALUE_ACCESSOR = {
@@ -14,6 +14,31 @@ const SIMPLE_SELECT_VALUE_ACCESSOR = {
   providers: [SIMPLE_SELECT_VALUE_ACCESSOR],
 })
 export class SimpleSelectComponent {
+  /**
+   * Array of entities or strings will be shown in a dropdown.
+   */
+  @Input() items: any[];
+  /**
+   * Adapts incoming items for display.
+   */
+  @Input() adapter: (item: any) => any;
+  /**
+   * Field in the items that will be used for *ngFor,
+   * Also will be used as control model in case modelAsId equal to true.
+   * @type {string}
+   */
+  @Input() idField = 'id';
+  /**
+   * Field in the items that will be displayed in a dropdown and in an input.
+   * @type {string}
+   */
+  @Input() textField = 'text';
+  /**
+   * If set to true, control model value will be set to item id field.
+   * @type {boolean}
+   */
+  @Input() modelAsId = false;
+
   private innerValue: any;
   private onChange = (_: any) => {};
   private onTouched = () => {};
