@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const SIMPLE_SELECT_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -13,7 +13,7 @@ const SIMPLE_SELECT_VALUE_ACCESSOR = {
   styleUrls: ['./simple-select.component.css'],
   providers: [SIMPLE_SELECT_VALUE_ACCESSOR],
 })
-export class SimpleSelectComponent {
+export class SimpleSelectComponent implements ControlValueAccessor {
   /**
    * Array of entities or strings will be shown in a dropdown.
    */
