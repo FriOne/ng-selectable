@@ -5,29 +5,30 @@ import { DebugElement } from '@angular/core';
 import { SimpleSelectComponent } from './simple-select.component';
 
 describe('SimpleSelectComponent', function () {
-  let de: DebugElement;
-  let comp: SimpleSelectComponent;
   let fixture: ComponentFixture<SimpleSelectComponent>;
+  let component: SimpleSelectComponent;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [SimpleSelectComponent]
-    })
-    .compileComponents();
+    TestBed
+      .configureTestingModule({
+        declarations: [SimpleSelectComponent]
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SimpleSelectComponent);
-    comp = fixture.componentInstance;
-    de = fixture.debugElement.query(By.css('h2'));
+    component = fixture.componentInstance;
   });
 
-  it('should create component', () => expect(comp).toBeDefined());
+  it('should create component', () => expect(component).toBeDefined());
 
-  it('should have expected <h2> text', () => {
+  it('should be closed by default', () => {
     fixture.detectChanges();
-    const h2 = de.nativeElement;
-    expect(h2.innerText).toMatch(/angular/i,
-      '<h2> should say something about "Angular"');
+    expect(component.opened).toBeFalsy('dropdown is opened by default');
   });
+
+  // it('should be closed by default', () => {
+  //   fixture.nativeElement.querySelector(`[ngbDropdown]`);
+  // });
 });

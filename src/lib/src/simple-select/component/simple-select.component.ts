@@ -39,6 +39,8 @@ export class SimpleSelectComponent implements ControlValueAccessor {
    */
   @Input() modelAsId = false;
 
+  opened = false;
+
   private innerValue: any;
   private onChange = (_: any) => {};
   private onTouched = () => {};
