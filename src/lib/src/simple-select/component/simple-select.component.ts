@@ -39,7 +39,7 @@ export class SimpleSelectComponent implements ControlValueAccessor {
    */
   @Input() modelAsId = false;
 
-  opened = false;
+  isOpened = false;
 
   private innerValue: any;
   private onChange = (_: any) => {};
@@ -68,5 +68,9 @@ export class SimpleSelectComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: () => void) {
     this.onTouched = fn;
+  }
+
+  onInputClick() {
+    this.isOpened = true;
   }
 }

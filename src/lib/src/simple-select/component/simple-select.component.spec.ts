@@ -9,26 +9,33 @@ describe('SimpleSelectComponent', function () {
   let component: SimpleSelectComponent;
 
   beforeEach(async(() => {
-    TestBed
-      .configureTestingModule({
-        declarations: [SimpleSelectComponent]
-      })
-      .compileComponents();
-  }));
+    const moduleConfiguration = {
+      declarations: [SimpleSelectComponent]
+    };
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SimpleSelectComponent);
-    component = fixture.componentInstance;
-  });
+    TestBed
+      .configureTestingModule(moduleConfiguration)
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(SimpleSelectComponent);
+        component = fixture.componentInstance;
+      });
+  }));
 
   it('should create component', () => expect(component).toBeDefined());
 
   it('should be closed by default', () => {
     fixture.detectChanges();
-    expect(component.opened).toBeFalsy('dropdown is opened by default');
+    expect(component.isOpened).toBeFalsy('dropdown is opened by default');
   });
 
-  // it('should be closed by default', () => {
-  //   fixture.nativeElement.querySelector(`[ngbDropdown]`);
-  // });
+  it('should be opened on input click if has items', () => {
+    component.items = ['A', 'B', 'C'];
+    fixture.detectChanges();
+
+    const input = fixture.nativeElement.querySelector(`input`);
+    input.click();
+
+    expect(component.isOpened).toBeTruthy('not opening when clicking on input when have items set');
+  });
 });
