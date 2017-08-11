@@ -1,0 +1,8 @@
+<div class="selected-value" (click)="onSelectedValueClick()">
+
+</div>
+<div class="dropdown">
+  <ng-container *ngFor="let item of items">
+    <div class="item" (click)="onItemClick(item)">{{item}}</div>
+  </ng-container>
+</div>

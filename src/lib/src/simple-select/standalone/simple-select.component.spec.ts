@@ -29,13 +29,23 @@ describe('SimpleSelectComponent', function () {
     expect(component.isOpened).toBeFalsy('dropdown is opened by default');
   });
 
-  it('should be opened on input click if has items', () => {
-    component.items = ['A', 'B', 'C'];
+  it('should be opened or not on click depending on items set', () => {
+    const selectedValueElement = fixture.nativeElement.querySelector(`input`);
+
+    selectedValueElement.click();
     fixture.detectChanges();
+    expect(component.isOpened).toBeFalsy('was opened with no items set');
 
-    const input = fixture.nativeElement.querySelector(`input`);
-    input.click();
+    component.items = [];
+    selectedValueElement.click();
+    fixture.detectChanges();
+    expect(component.isOpened).toBeFalsy('was opened with empty items array');
 
-    expect(component.isOpened).toBeTruthy('not opening when clicking on input when have items set');
+    component.items = ['A', 'B', 'C'];
+    selectedValueElement.click();
+    fixture.detectChanges();
+    expect(component.isOpened).toBeTruthy(
+      'not opening when clicking on selected value element when have items set'
+    );
   });
 });

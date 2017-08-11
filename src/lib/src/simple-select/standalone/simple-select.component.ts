@@ -15,29 +15,9 @@ const SIMPLE_SELECT_VALUE_ACCESSOR = {
 })
 export class SimpleSelectComponent implements ControlValueAccessor {
   /**
-   * Array of entities or strings will be shown in a dropdown.
+   * Array of strings or numbers that will be shown in a dropdown.
    */
-  @Input() items: any[];
-  /**
-   * Adapts incoming items for display.
-   */
-  @Input() adapter: (item: any) => any;
-  /**
-   * Field in the items that will be used for *ngFor,
-   * Also will be used as control model in case modelAsId equal to true.
-   * @type {string}
-   */
-  @Input() idField = 'id';
-  /**
-   * Field in the items that will be displayed in a dropdown and in an input.
-   * @type {string}
-   */
-  @Input() textField = 'text';
-  /**
-   * If set to true, control model value will be set to item id field.
-   * @type {boolean}
-   */
-  @Input() modelAsId = false;
+  @Input() items: string[] | number[] = [];
 
   isOpened = false;
 
@@ -45,6 +25,19 @@ export class SimpleSelectComponent implements ControlValueAccessor {
   private onChange = (_: any) => {};
   private onTouched = () => {};
 
+  onSelectedValueClick() {
+    this.isOpened = true;
+  }
+
+  onSearchChange(search: string) {
+
+  }
+
+  onItemClick(item: string | number) {
+
+  }
+
+  // --------------------- NgModel --------------------- //
   get value(): any {
     return this.innerValue;
   }
@@ -68,9 +61,5 @@ export class SimpleSelectComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: () => void) {
     this.onTouched = fn;
-  }
-
-  onInputClick() {
-    this.isOpened = true;
   }
 }
