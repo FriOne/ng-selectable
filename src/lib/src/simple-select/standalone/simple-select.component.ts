@@ -14,9 +14,7 @@ const SIMPLE_SELECT_VALUE_ACCESSOR = {
   providers: [SIMPLE_SELECT_VALUE_ACCESSOR],
 })
 export class SimpleSelectComponent implements ControlValueAccessor {
-  /**
-   * Array of strings or numbers that will be shown in a dropdown.
-   */
+  @Input() placeholder: string;
   @Input() items: string[] | number[] = [];
 
   isOpened = false;

@@ -7,6 +7,7 @@ import { SimpleSelectComponent } from './simple-select.component';
 describe('SimpleSelectComponent', function () {
   let fixture: ComponentFixture<SimpleSelectComponent>;
   let component: SimpleSelectComponent;
+  let selectedValueRef: DebugElement;
 
   beforeEach(async(() => {
     const moduleConfiguration = {
@@ -19,6 +20,7 @@ describe('SimpleSelectComponent', function () {
       .then(() => {
         fixture = TestBed.createComponent(SimpleSelectComponent);
         component = fixture.componentInstance;
+        selectedValueRef = fixture.debugElement.query(By.css('.selected-value'));
       });
   }));
 
@@ -30,22 +32,31 @@ describe('SimpleSelectComponent', function () {
   });
 
   it('should be opened or not on click depending on items set', () => {
-    const selectedValueElement = fixture.nativeElement.querySelector(`input`);
-
-    selectedValueElement.click();
+    selectedValueRef.nativeElement.click();
     fixture.detectChanges();
     expect(component.isOpened).toBeFalsy('was opened with no items set');
 
     component.items = [];
-    selectedValueElement.click();
+    selectedValueRef.nativeElement.click();
     fixture.detectChanges();
     expect(component.isOpened).toBeFalsy('was opened with empty items array');
 
     component.items = ['A', 'B', 'C'];
-    selectedValueElement.click();
+    selectedValueRef.nativeElement.click();
     fixture.detectChanges();
     expect(component.isOpened).toBeTruthy(
       'not opening when clicking on selected value element when have items set'
+    );
+  });
+
+  it('should show placeholder if necessary', () => {
+    const placeholder = 'Enter something here';
+    component.placeholder = placeholder;
+    fixture.detectChanges();
+
+    expect(selectedValueRef.nativeElement.innerText.trim()).toBe(
+      placeholder,
+      'placeholder was not set'
     );
   });
 });
