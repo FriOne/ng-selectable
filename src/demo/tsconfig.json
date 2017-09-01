@@ -11,6 +11,9 @@
       ]
     }
   },
+  "include": [
+    "./../../node_modules/rxjs/operator/map.d.ts"
+  ],
   "exclude": [
     "main-aot.ts"
   ]

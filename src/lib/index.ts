@@ -13,3 +13,4 @@ export { EntitiesSelectModule } from './src/entities-select/module';
 export { TypeaheadSelectComponent } from './src/typeahead-select/standalone/typeahead-select.component';
 export { TypeaheadSelectVirtualComponent } from './src/typeahead-select/virtual/typeahead-select-virtual.component';
 export { TypeaheadSelectModule } from './src/typeahead-select/module';
+export { SelectModule } from './src/module';

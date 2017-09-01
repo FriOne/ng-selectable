@@ -1,8 +1,20 @@
-<div class="selected-value" (click)="onSelectedValueClick()">
+<div
+  class="selected-value"
+  (click)="onSelectedValueClick()"
+>
 
 </div>
 <div class="dropdown">
   <ng-container *ngFor="let item of items">
-    <div class="item" (click)="onItemClick(item)">{{item}}</div>
+    <div
+      role="option"
+      tabindex="0"
+      class="item"
+      [ngClass]="{'selected': value === item}"
+      [attr.selected]="value === item"
+      (click)="onItemClick(item)"
+    >
+      {{item}}
+    </div>
   </ng-container>
 </div>

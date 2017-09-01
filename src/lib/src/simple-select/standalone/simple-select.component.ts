@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, forwardRef, HostBinding, Input, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const SIMPLE_SELECT_VALUE_ACCESSOR = {
@@ -13,26 +13,37 @@ const SIMPLE_SELECT_VALUE_ACCESSOR = {
   styleUrls: ['./simple-select.component.css'],
   providers: [SIMPLE_SELECT_VALUE_ACCESSOR],
 })
-export class SimpleSelectComponent implements ControlValueAccessor {
+export class SimpleSelectComponent implements ControlValueAccessor, AfterViewInit {
   @Input() placeholder: string;
   @Input() items: string[] | number[] = [];
-
-  isOpened = false;
+  @HostBinding('attr.aria-disabled') @HostBinding('class.disabled') disabled = false;
+  @HostBinding('class.opened') isOpened = false;
+  @HostBinding('class.has-selected-value') hasSelectedValue = false;
 
   private innerValue: any;
   private onChange = (_: any) => {};
   private onTouched = () => {};
 
+  constructor(private renderer: Renderer2, private ref: ElementRef) {}
+
+  ngAfterViewInit() {
+    this.renderer.setAttribute(this.ref, 'role', 'listbox');
+    this.renderer.setAttribute(this.ref, 'tabindex', '0');
+    if (this.placeholder) {
+      this.renderer.setAttribute(this.ref, 'aria-label', this.placeholder);
+    }
+    this.renderer.setAttribute(this.ref, 'aria-multiselectable', 'false');
+  }
+
   onSelectedValueClick() {
+    if (this.disabled) {
+      return;
+    }
     this.isOpened = true;
   }
 
-  onSearchChange(search: string) {
-
-  }
-
   onItemClick(item: string | number) {
-
+    this.value = item;
   }
 
   // --------------------- NgModel --------------------- //
@@ -42,6 +53,7 @@ export class SimpleSelectComponent implements ControlValueAccessor {
 
   set value(value: any) {
     if (this.innerValue !== value) {
+      this.hasSelectedValue = !!value;
       this.innerValue = value;
       this.onChange(value);
     }
@@ -49,6 +61,7 @@ export class SimpleSelectComponent implements ControlValueAccessor {
 
   writeValue(value: any) {
     if (this.innerValue !== value) {
+      this.hasSelectedValue = !!value;
       this.innerValue = value;
     }
   }
@@ -59,5 +72,10 @@ export class SimpleSelectComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: () => void) {
     this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+    this.isOpened = false;
   }
 }
