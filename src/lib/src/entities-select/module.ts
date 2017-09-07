@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { EntitiesSelectComponent } from './standalone/entities-select.component';
 import { EntitiesSelectSearchComponent } from './search/entities-select-search.component';
@@ -7,6 +8,7 @@ import { EntitiesSelectSearchVirtualComponent } from './search-and-virtual/entit
 
 @NgModule({
   declarations: [
+    CommonModule,
     EntitiesSelectComponent,
     EntitiesSelectSearchComponent,
     EntitiesSelectVirtualComponent,
