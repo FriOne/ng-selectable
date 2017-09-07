@@ -7,6 +7,10 @@
   outline: 0;
 }
 
+.selected-value, .dropdown-item {
+  min-height: 33px;
+}
+
 .dropdown-toggle {
   padding-right: 18px;
 }
