@@ -1,10 +1,10 @@
 <div
-  class="selected-value dropdown-toggle"
+  class="selected-value dropdown-toggle form-control"
   (click)="onSelectedValueClick()"
 >
   {{value || placeholder}}
 </div>
-<div class="dropdown-menu">
+<div class="dropdown-menu" [ngClass]="{show: isOpened}">
   <div
     role="option"
     tabindex="0"

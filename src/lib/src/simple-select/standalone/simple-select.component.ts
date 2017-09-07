@@ -17,9 +17,9 @@ export class SimpleSelectComponent implements ControlValueAccessor, AfterViewIni
   @Input() placeholder: string;
   @Input() items: string[] | number[] = [];
   @HostBinding('attr.aria-disabled') @HostBinding('class.disabled') disabled = false;
-  @HostBinding('class.show') isOpened = false;
   @HostBinding('class.dropdown') dropdownClass = true;
   @HostBinding('class.has-selected-value') hasSelectedValue = false;
+  isOpened = false;
 
   private innerValue: any;
   private onChange = (_: any) => {};
@@ -28,23 +28,24 @@ export class SimpleSelectComponent implements ControlValueAccessor, AfterViewIni
   constructor(private renderer: Renderer2, private ref: ElementRef) {}
 
   ngAfterViewInit() {
-    this.renderer.setAttribute(this.ref, 'role', 'listbox');
-    this.renderer.setAttribute(this.ref, 'tabindex', '0');
+    this.renderer.setAttribute(this.ref.nativeElement, 'role', 'listbox');
+    this.renderer.setAttribute(this.ref.nativeElement, 'tabindex', '0');
     if (this.placeholder) {
-      this.renderer.setAttribute(this.ref, 'aria-label', this.placeholder);
+      this.renderer.setAttribute(this.ref.nativeElement, 'aria-label', this.placeholder);
     }
-    this.renderer.setAttribute(this.ref, 'aria-multiselectable', 'false');
+    this.renderer.setAttribute(this.ref.nativeElement, 'aria-multiselectable', 'false');
   }
 
   onSelectedValueClick() {
     if (this.disabled) {
       return;
     }
-    this.isOpened = true;
+    this.isOpened = !this.isOpened;
   }
 
   onItemClick(item: string | number) {
     this.value = item;
+    this.isOpened = false;
   }
 
   // --------------------- NgModel --------------------- //
