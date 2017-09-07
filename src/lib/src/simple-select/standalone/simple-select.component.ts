@@ -1,4 +1,7 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, HostBinding, Input, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit, Component, ElementRef, forwardRef, HostBinding, HostListener, Input,
+  Renderer2
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const SIMPLE_SELECT_VALUE_ACCESSOR = {
@@ -34,6 +37,19 @@ export class SimpleSelectComponent implements ControlValueAccessor, AfterViewIni
       this.renderer.setAttribute(this.ref.nativeElement, 'aria-label', this.placeholder);
     }
     this.renderer.setAttribute(this.ref.nativeElement, 'aria-multiselectable', 'false');
+  }
+
+  @HostListener('document:click', ['$event']) onDocumentClick(event: MouseEvent) {
+    const ref = this.ref.nativeElement;
+    const clickedRef = event.target;
+
+    if (clickedRef !== ref && !ref.contains(clickedRef)) {
+      this.close();
+    }
+  }
+
+  close() {
+    this.isOpened = false;
   }
 
   onSelectedValueClick() {

@@ -1,6 +1,6 @@
 {
   "name": "ng-selectable",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Library QuickStart package.json from the documentation, supplemented with testing support",
   "main": "./bundles/ng-selectable.umd.js",
   "module": "./ng-selectable.es5.js",
@@ -35,7 +35,7 @@
     "integration:aot": "cd integration && npm run e2e:aot",
     "lint": "tslint ./src/**/*.ts -t verbose",
     "release": "standard-version",
-    "publish": "cd dist && npm publish"
+    "publish": "cd ./dist && npm publish"
   },
   "peerDependencies": {
     "@angular/core": ">=4.0.0 <5.0.0 || >=4.0.0-beta <5.0.0",
