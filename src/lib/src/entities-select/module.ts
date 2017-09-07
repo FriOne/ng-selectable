@@ -7,8 +7,8 @@ import { EntitiesSelectVirtualComponent } from './virtual/entities-select-virtua
 import { EntitiesSelectSearchVirtualComponent } from './search-and-virtual/entities-select-search-virtual.component';
 
 @NgModule({
+  imports: [CommonModule],
   declarations: [
-    CommonModule,
     EntitiesSelectComponent,
     EntitiesSelectSearchComponent,
     EntitiesSelectVirtualComponent,

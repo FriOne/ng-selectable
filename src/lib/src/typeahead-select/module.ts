@@ -5,8 +5,8 @@ import { TypeaheadSelectComponent } from './standalone/typeahead-select.componen
 import { TypeaheadSelectVirtualComponent } from './virtual/typeahead-select-virtual.component';
 
 @NgModule({
+  imports: [CommonModule],
   declarations: [
-    CommonModule,
     TypeaheadSelectComponent,
     TypeaheadSelectVirtualComponent,
   ],

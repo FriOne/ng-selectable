@@ -17,7 +17,8 @@ export class SimpleSelectComponent implements ControlValueAccessor, AfterViewIni
   @Input() placeholder: string;
   @Input() items: string[] | number[] = [];
   @HostBinding('attr.aria-disabled') @HostBinding('class.disabled') disabled = false;
-  @HostBinding('class.opened') isOpened = false;
+  @HostBinding('class.show') isOpened = false;
+  @HostBinding('class.dropdown') dropdownClass = true;
   @HostBinding('class.has-selected-value') hasSelectedValue = false;
 
   private innerValue: any;

@@ -8,8 +8,8 @@ import { SimpleSelectSearchVirtualComponent } from './search-and-virtual/simple-
 
 
 @NgModule({
+  imports: [CommonModule],
   declarations: [
-    CommonModule,
     SimpleSelectComponent,
     SimpleSelectSearchComponent,
     SimpleSelectVirtualComponent,
