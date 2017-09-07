@@ -1,6 +1,6 @@
 {
   "name": "ng-selectable",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Library QuickStart package.json from the documentation, supplemented with testing support",
   "main": "./bundles/ng-selectable.umd.js",
   "module": "./ng-selectable.es5.js",
