@@ -1,14 +1,20 @@
-<div class="selected-value" (click)="onSelectedValueClick()">
-
+<div
+  class="selected-value dropdown-toggle form-control"
+  (click)="onSelectedValueClick()"
+>
+  {{selectedText || placeholder}}
 </div>
-<div class="dropdown">
-  <input
-    class="search-field"
-    #searchField
-    (paste)="onSearchChange(searchField.value)"
-    (keyup)="onSearchChange(searchField.value)"
+<div class="dropdown-menu" [ngClass]="{show: isOpened}">
+  <input #searchInputRef class="search-input">
+  <div
+    role="option"
+    tabindex="0"
+    class="dropdown-item"
+    *ngFor="let item of adaptedItems$ | async"
+    [ngClass]="{'selected': value === item.value}"
+    [attr.selected]="value === item.value"
+    (click)="onItemClick(item.value)"
   >
-  <ng-container *ngFor="let item of items">
-    <div class="item" (click)="onItemClick(item)">{{item}}</div>
-  </ng-container>
+    {{item.label}}
+  </div>
 </div>

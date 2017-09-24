@@ -37,10 +37,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.items && this.items) {
-      this.adaptedItems = this.items.map(item => ({
-        label: this.adapter(item),
-        value: this.idProp ? item[this.idProp] : item,
-      }));
+      this.adaptedItems = this.adaptItems(this.items);
     }
   }
 
@@ -76,6 +73,13 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
       return;
     }
     this.isOpened = !this.isOpened;
+  }
+
+  protected adaptItems(items: any[]): any[] {
+    return items.map(item => ({
+      label: this.adapter(item),
+      value: this.idProp ? item[this.idProp] : item,
+    }));
   }
 
   // --------------------- NgModel --------------------- //
