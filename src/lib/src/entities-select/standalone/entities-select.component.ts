@@ -1,4 +1,8 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component, ElementRef, forwardRef, HostBinding, HostListener, Input, OnChanges, Renderer2,
+  SimpleChanges
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const ENTITIES_SELECT_VALUE_ACCESSOR = {
@@ -13,28 +17,65 @@ const ENTITIES_SELECT_VALUE_ACCESSOR = {
   styleUrls: ['./entities-select.component.css'],
   providers: [ENTITIES_SELECT_VALUE_ACCESSOR],
 })
-export class EntitiesSelectComponent implements ControlValueAccessor {
-  /**
-   * Array of strings or numbers that will be shown in a dropdown.
-   */
-  @Input() items: string[] | number[] = [];
-
+export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewInit, OnChanges {
+  @Input() placeholder: string;
+  @Input() items: any[] = [];
+  @Input() idProp: string;
+  @Input() textProp = 'name';
+  @Input() adapter = (entity: any) => (entity && entity[this.textProp]);
+  @HostBinding('attr.aria-disabled') @HostBinding('class.disabled') disabled = false;
+  @HostBinding('class.dropdown') dropdownClass = true;
+  @HostBinding('class.has-selected-value') hasSelectedValue = false;
   isOpened = false;
+  adaptedItems: any[] = [];
 
   private innerValue: any;
   private onChange = (_: any) => {};
   private onTouched = () => {};
 
+  constructor(private renderer: Renderer2, private ref: ElementRef) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.items && this.items) {
+      this.adaptedItems = this.items.map(item => ({
+        label: this.adapter(item),
+        value: this.idProp ? item[this.idProp] : item,
+      }));
+    }
+  }
+
+  ngAfterViewInit() {
+    this.renderer.setAttribute(this.ref.nativeElement, 'role', 'listbox');
+    this.renderer.setAttribute(this.ref.nativeElement, 'tabindex', '0');
+    if (this.placeholder) {
+      this.renderer.setAttribute(this.ref.nativeElement, 'aria-label', this.placeholder);
+    }
+    this.renderer.setAttribute(this.ref.nativeElement, 'aria-multiselectable', 'false');
+  }
+
+  get selectedText() {
+    return this.value ? this.adapter(this.value) : '';
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const ref = this.ref.nativeElement;
+    const clickedRef = event.target;
+
+    if (clickedRef !== ref && !ref.contains(clickedRef)) {
+      this.close();
+    }
+  }
+
+  close() {
+    this.isOpened = false;
+  }
+
   onSelectedValueClick() {
-    this.isOpened = true;
-  }
-
-  onSearchChange(search: string) {
-
-  }
-
-  onItemClick(item: string | number) {
-
+    if (this.disabled) {
+      return;
+    }
+    this.isOpened = !this.isOpened;
   }
 
   // --------------------- NgModel --------------------- //

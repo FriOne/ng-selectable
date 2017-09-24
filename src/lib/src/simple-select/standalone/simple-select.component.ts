@@ -39,7 +39,8 @@ export class SimpleSelectComponent implements ControlValueAccessor, AfterViewIni
     this.renderer.setAttribute(this.ref.nativeElement, 'aria-multiselectable', 'false');
   }
 
-  @HostListener('document:click', ['$event']) onDocumentClick(event: MouseEvent) {
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
     const ref = this.ref.nativeElement;
     const clickedRef = event.target;
 
