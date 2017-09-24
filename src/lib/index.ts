@@ -1,3 +1,5 @@
+import './rxjs.imports';
+
 export { SimpleSelectComponent } from './src/simple-select/standalone/simple-select.component';
 export { SimpleSelectSearchComponent } from './src/simple-select/search/simple-select-search.component';
 export { SimpleSelectVirtualComponent } from './src/simple-select/virtual/simple-select-virtual.component';
