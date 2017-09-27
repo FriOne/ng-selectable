@@ -29,6 +29,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
   isOpened = false;
   adaptedItems: any[] = [];
 
+  private selectedItem: any;
   private innerValue: any;
   private onChange = (_: any) => {};
   private onTouched = () => {};
@@ -51,7 +52,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
   }
 
   get selectedText() {
-    return this.value ? this.adapter(this.value) : '';
+    return this.selectedItem ? this.adapter(this.selectedItem) : '';
   }
 
   @HostListener('document:click', ['$event'])
@@ -87,6 +88,15 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
     }));
   }
 
+  private findItemByValue(value: any) {
+    for (const item of this.adaptedItems) {
+      if (value === item.value) {
+        return item;
+      }
+    }
+    return null;
+  }
+
   // --------------------- NgModel --------------------- //
   get value(): any {
     return this.innerValue;
@@ -94,6 +104,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
 
   set value(value: any) {
     if (this.innerValue !== value) {
+      this.selectedItem = this.findItemByValue(value);
       this.innerValue = value;
       this.onChange(value);
     }
@@ -101,6 +112,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
 
   writeValue(value: any) {
     if (this.innerValue !== value) {
+      this.selectedItem = this.findItemByValue(value);
       this.innerValue = value;
     }
   }
