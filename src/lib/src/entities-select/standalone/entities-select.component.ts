@@ -75,6 +75,11 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
     this.isOpened = !this.isOpened;
   }
 
+  onItemClick(value: any) {
+    this.value = value;
+    this.isOpened = false;
+  }
+
   protected adaptItems(items: any[]): any[] {
     return items.map(item => ({
       label: this.adapter(item),
