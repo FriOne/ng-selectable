@@ -1,14 +1,23 @@
 {
   "name": "ng-selectable",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Select components set library",
   "main": "./bundles/ng-selectable.umd.js",
   "module": "./ng-selectable.es5.js",
   "es2015": "./ng-selectable.js",
   "typings": "./ng-selectable.d.ts",
-  "author": "",
+  "author": "Lyubimov Roman",
   "license": "MIT",
-  "repository": {},
+  "repository": "git@github.com:FriOne/ng-selectable.git",
+  "keywords": [
+    "select",
+    "autocomplete",
+    "typeahead",
+    "ng",
+    "angular",
+    "angular2",
+    "angular4"
+  ],
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"
