@@ -52,7 +52,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
   }
 
   get selectedText() {
-    return this.selectedItem ? this.adapter(this.selectedItem) : '';
+    return this.selectedItem ? this.adapter(this.selectedItem.value) : '';
   }
 
   @HostListener('document:click', ['$event'])
