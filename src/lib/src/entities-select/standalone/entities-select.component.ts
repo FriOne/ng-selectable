@@ -21,6 +21,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
   @Input() placeholder: string;
   @Input() items: any[] = [];
   @Input() idProp: string;
+  @Input() valueProp: string;
   @Input() textProp = 'name';
   @Input() adapter = (entity: any) => (entity && entity[this.textProp]);
   @HostBinding('attr.aria-disabled') @HostBinding('class.disabled') disabled = false;
@@ -84,17 +85,24 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
   protected adaptItems(items: any[]): any[] {
     return items.map(item => ({
       label: this.adapter(item),
-      value: this.idProp ? item[this.idProp] : item,
+      value: this.valueProp ? item[this.valueProp] : item,
     }));
   }
 
   private findItemByValue(value: any) {
     for (const item of this.adaptedItems) {
-      if (value === item.value) {
+      if (this.compareValues(value, item.value)) {
         return item;
       }
     }
     return null;
+  }
+
+  private compareValues(aVal: any, bVal: any) {
+    if (!this.idProp) {
+      return (aVal === bVal);
+    }
+    return (aVal[this.idProp] === bVal[this.idProp]);
   }
 
   // --------------------- NgModel --------------------- //

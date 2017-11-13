@@ -1,6 +1,6 @@
 {
   "name": "ng-selectable",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Select components set library",
   "main": "./bundles/ng-selectable.umd.js",
   "module": "./ng-selectable.es5.js",
