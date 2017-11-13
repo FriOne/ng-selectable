@@ -40,6 +40,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
   ngOnChanges(changes: SimpleChanges) {
     if (changes.items && this.items) {
       this.adaptedItems = this.adaptItems(this.items);
+      this.selectedItem = this.findItemByValue(this.value);
     }
   }
 
