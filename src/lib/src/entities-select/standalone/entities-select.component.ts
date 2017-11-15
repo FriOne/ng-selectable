@@ -41,6 +41,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
     if (changes.items && this.items) {
       this.adaptedItems = this.adaptItems(this.items);
       this.selectedItem = this.findItemByValue(this.value);
+      this.hasSelectedValue = !!this.selectedItem;
     }
   }
 
@@ -114,6 +115,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
   set value(value: any) {
     if (this.innerValue !== value) {
       this.selectedItem = this.findItemByValue(value);
+      this.hasSelectedValue = !!this.selectedItem;
       this.innerValue = value;
       this.onChange(value);
     }
@@ -122,6 +124,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
   writeValue(value: any) {
     if (this.innerValue !== value) {
       this.selectedItem = this.findItemByValue(value);
+      this.hasSelectedValue = !!this.selectedItem;
       this.innerValue = value;
     }
   }
