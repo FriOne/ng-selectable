@@ -55,7 +55,7 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
   }
 
   get selectedText() {
-    return this.selectedItem ? this.adapter(this.selectedItem.value) : '';
+    return this.selectedItem ? this.selectedItem.label : '';
   }
 
   @HostListener('document:click', ['$event'])
