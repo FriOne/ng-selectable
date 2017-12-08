@@ -93,7 +93,11 @@ export class EntitiesSelectComponent implements ControlValueAccessor, AfterViewI
 
   private findItemByValue(value: any) {
     for (const item of this.adaptedItems) {
-      if (value && item.value && this.compareValues(value, item.value)) {
+      if (
+        (value || value === 0)
+        && (item.value || item.value === 0)
+        && this.compareValues(value, item.value)
+      ) {
         return item;
       }
     }
